@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff7f9" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="description" content="给程倚邈小朋友的一份认真又可爱的约会邀请" />
+  <title>给程倚邈小朋友的约会邀请</title>
+  <style>
+    :root {
+      --pink: #ff718f;
+      --deep-pink: #f14f77;
+      --light-pink: #fff0f4;
+      --cream: #fffaf5;
+      --text: #4a3440;
+      --muted: #8f7480;
+      --card: rgba(255,255,255,.86);
+      --shadow: 0 18px 50px rgba(229, 103, 137, .18);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255, 192, 211, .45), transparent 25%),
+        radial-gradient(circle at 90% 85%, rgba(255, 220, 177, .38), transparent 30%),
+        linear-gradient(155deg, #fffafd 0%, #fff5f6 50%, #fffaf3 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(18px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom));
+    }
+
+    .app {
+      position: relative;
+      width: min(100%, 430px);
+      min-height: min(760px, calc(100dvh - 36px));
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 30px;
+      background: rgba(255,255,255,.48);
+      box-shadow: 0 26px 80px rgba(197, 88, 120, .16);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .floating-heart {
+      position: absolute;
+      z-index: -1;
+      opacity: .35;
+      animation: float 7s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+    .h1 { top: 8%; left: 8%; font-size: 24px; }
+    .h2 { top: 18%; right: 9%; font-size: 17px; animation-delay: 1s; }
+    .h3 { bottom: 16%; left: 10%; font-size: 19px; animation-delay: 2s; }
+    .h4 { bottom: 8%; right: 8%; font-size: 28px; animation-delay: .6s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-13px) rotate(7deg); }
+    }
+
+    .page {
+      display: none;
+      min-height: inherit;
+      padding: 34px 24px 30px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: pageIn .45s ease both;
+    }
+
+    .page.active { display: flex; }
+
+    @keyframes pageIn {
+      from { opacity: 0; transform: translateY(12px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .mini-tag {
+      margin-bottom: 15px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: var(--deep-pink);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      box-shadow: 0 7px 22px rgba(229, 103, 137, .10);
+    }
+
+    .emoji {
+      font-size: 70px;
+      line-height: 1;
+      margin-bottom: 22px;
+      filter: drop-shadow(0 10px 15px rgba(236, 90, 128, .16));
+      animation: breathe 2.4s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.07); }
+    }
+
+    h1, h2, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 12px;
+      font-size: clamp(28px, 8vw, 38px);
+      line-height: 1.22;
+      text-align: center;
+      letter-spacing: -.02em;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 25px;
+      text-align: center;
+    }
+
+    .subtitle {
+      max-width: 320px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.75;
+      text-align: center;
+    }
+
+    .button-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      min-height: 74px;
+    }
+
+    button {
+      border: 0;
+      outline: 0;
+      font: inherit;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .primary-btn, .secondary-btn, .ghost-btn {
+      border-radius: 999px;
+      font-weight: 800;
+      transition: transform .22s ease, box-shadow .22s ease, opacity .22s ease;
+    }
+
+    .primary-btn {
+      padding: 15px 28px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--pink), var(--deep-pink));
+      box-shadow: 0 13px 30px rgba(241, 79, 119, .28);
+    }
+
+    .primary-btn:active { transform: scale(.96); }
+
+    .secondary-btn {
+      padding: 14px 23px;
+      color: var(--deep-pink);
+      background: #fff;
+      box-shadow: 0 10px 28px rgba(195, 91, 120, .13);
+      border: 1px solid #ffe0e8;
+    }
+
+    #yesBtn {
+      position: relative;
+      z-index: 20;
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    #noBtn {
+      position: relative;
+      z-index: 50;
+      will-change: left, top, transform;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      top: max(24px, env(safe-area-inset-top));
+      z-index: 999;
+      max-width: calc(100vw - 36px);
+      padding: 12px 18px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 18px;
+      background: rgba(255,255,255,.95);
+      color: var(--deep-pink);
+      font-size: 14px;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translate(-50%, -14px) scale(.96);
+      pointer-events: none;
+      transition: .25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    .card {
+      width: 100%;
+      padding: 22px 18px;
+      border: 1px solid rgba(255,255,255,.95);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .field { margin-bottom: 18px; }
+    .field:last-child { margin-bottom: 0; }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    input, select {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 15px;
+      border: 1px solid #f5dbe3;
+      border-radius: 15px;
+      background: rgba(255,255,255,.92);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: #ff98ae;
+      box-shadow: 0 0 0 4px rgba(255, 113, 143, .11);
+    }
+
+    .page-actions {
+      width: 100%;
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .page-actions .primary-btn { width: 100%; }
+
+    .primary-btn:disabled {
+      cursor: wait;
+      opacity: .72;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status-pill {
+      margin: -8px 0 16px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: var(--deep-pink);
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 8px 22px rgba(229, 103, 137, .10);
+    }
+
+    .love-note {
+      max-width: 330px;
+      margin: 0 0 24px;
+      padding: 15px 17px;
+      border: 1px dashed #f4becb;
+      border-radius: 19px;
+      background: rgba(255,255,255,.64);
+      color: #785965;
+      font-size: 14px;
+      line-height: 1.75;
+      text-align: center;
+    }
+
+
+    .activities {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 8px;
+    }
+
+    .activity {
+      min-height: 70px;
+      padding: 12px 9px;
+      border: 1px solid #f4dce3;
+      border-radius: 18px;
+      background: rgba(255,255,255,.82);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 750;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(196, 93, 122, .08);
+      transition: .2s ease;
+    }
+
+    .activity span {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 25px;
+    }
+
+    .activity.selected {
+      border-color: #ff8ea7;
+      background: #fff0f4;
+      color: var(--deep-pink);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(241, 79, 119, .17);
+    }
+
+    .custom-wrap {
+      width: 100%;
+      margin-top: 13px;
+    }
+
+    .final-heart {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 145px;
+      height: 132px;
+      margin-bottom: 30px;
+      font-size: 70px;
+      animation: heartbeat 1.15s ease-in-out infinite;
+      filter: drop-shadow(0 14px 22px rgba(236, 90, 128, .24));
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.09); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.06); }
+      65% { transform: scale(1); }
+    }
+
+    .final-text {
+      margin: 0 0 12px;
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .final-plan {
+      margin-bottom: 25px;
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.75);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .tiny {
+      color: #b296a1;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .progress {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      z-index: 10;
+      display: flex;
+      gap: 7px;
+      transform: translateX(-50%);
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #f0d7df;
+      transition: .25s ease;
+    }
+
+    .dot.active {
+      width: 22px;
+      background: var(--pink);
+    }
+
+    @media (max-height: 680px) {
+      .app { min-height: calc(100dvh - 24px); }
+      .page { justify-content: flex-start; padding-top: 58px; overflow-y: auto; }
+      .emoji { font-size: 56px; margin-bottom: 14px; }
+      .activities { gap: 8px; }
+      .activity { min-height: 61px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app" id="app">
+    <div class="progress" aria-hidden="true">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <span class="floating-heart h1">♡</span>
+    <span class="floating-heart h2">♥</span>
+    <span class="floating-heart h3">♡</span>
+    <span class="floating-heart h4">♥</span>
+
+    <section class="page active" id="page1">
+      <div class="mini-tag">一份只写给你的邀请</div>
+      <div class="emoji">🐰💗</div>
+      <h1>程倚邈小朋友<br>你想和我约会吗？</h1>
+      <p class="subtitle">这不是考试题，不许空着。不过偷偷告诉你，只有一个答案是正确的。</p>
+      <div class="button-row">
+        <button class="primary-btn" id="yesBtn">当然想！</button>
+        <button class="secondary-btn" id="noBtn">不想</button>
+      </div>
+    </section>
+
+    <section class="page" id="page2">
+      <div class="emoji">🥰</div>
+      <h1>嘻嘻，我也想和你约会！</h1>
+      <div class="love-note">我们明明已经很了解彼此了，但我还是想认真地邀请程倚邈小朋友一次。不是因为非要去哪里，只是想把一段时间专门留给你。</div>
+      <div class="page-actions">
+        <button class="primary-btn" data-next="page3">那就把时间留给我们吧</button>
+      </div>
+    </section>
+
+    <section class="page" id="page3">
+      <div class="mini-tag">约会时间</div>
+      <h2>程倚邈小朋友什么时候有空呀？</h2>
+      <p class="subtitle">不用安排很久，也不用跑很远。选一个你最放松的时间，剩下的交给我。</p>
+      <div class="card">
+        <div class="field">
+          <label for="dateInput">哪一天</label>
+          <input id="dateInput" type="date" />
+        </div>
+        <div class="field">
+          <label for="timeSelect">几点见面</label>
+          <select id="timeSelect">
+            <option value="">请选择时间</option>
+            <option value="09:30">上午 09:30</option>
+            <option value="10:30">上午 10:30</option>
+            <option value="12:00">中午 12:00</option>
+            <option value="14:00">下午 14:00</option>
+            <option value="15:30">下午 15:30</option>
+            <option value="17:30">傍晚 17:30</option>
+            <option value="19:00">晚上 19:00</option>
+            <option value="20:00">晚上 20:00</option>
+          </select>
+        </div>
+      </div>
+      <div class="page-actions">
+        <button class="primary-btn" id="timeConfirm">这段时间归我们啦</button>
+      </div>
+    </section>
+
+    <section class="page" id="page4">
+      <div class="mini-tag">约会内容</div>
+      <h2>这次想和我做什么？</h2>
+      <p class="subtitle">可以选一个，也可以贪心地多选几个。其实只要和你待在一起，做什么都很好。</p>
+
+      <div class="activities" id="activities">
+        <button class="activity" data-name="去图书馆一起看书"><span>📚</span>图书馆待着</button>
+        <button class="activity" data-name="在校园里散步吹晚风"><span>🌙</span>校园散步</button>
+        <button class="activity" data-name="一起拼豆或做小手工"><span>🧩</span>拼豆 / 手工</button>
+        <button class="activity" data-name="一起画画，给对方留一张画"><span>🎨</span>一起画画</button>
+        <button class="activity" data-name="喝奶茶，找个地方发呆聊天"><span>☁️</span>奶茶发呆</button>
+        <button class="activity" data-name="一起吃一顿喜欢的饭"><span>🍜</span>好好吃饭</button>
+        <button class="activity" data-name="一起看一场电影"><span>🍿</span>一起看电影</button>
+        <button class="activity" data-name="拍一些只属于我们的照片"><span>📷</span>拍点照片</button>
+        <button class="activity" data-name="互相给对方选一本书"><span>📖</span>互相选书</button>
+        <button class="activity" data-name="什么都不安排，见面后再慢慢决定"><span>🎲</span>见面再决定</button>
+      </div>
+
+      <div class="custom-wrap">
+        <input id="customActivity" type="text" maxlength="36" placeholder="程倚邈小朋友还有别的想法，也可以写这里…" />
+      </div>
+
+      <div class="page-actions">
+        <button class="primary-btn" id="activityConfirm">确定，并偷偷告诉他</button>
+      </div>
+    </section>
+
+    <section class="page" id="page5">
+      <div class="final-heart">💗</div>
+      <div class="status-pill" id="sendStatus">答案已经悄悄送到他的邮箱啦 💌</div>
+      <p class="final-text" id="finalText">我会准时去找你！</p>
+      <div class="final-plan" id="finalPlan"></div>
+      <button class="primary-btn" id="copyBtn">复制一份，留作约会证据</button>
+      <p class="tiny">程倚邈小朋友只需要负责出现。提前期待、准时找你和照顾好这次约会，都是我的事。</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">程倚邈小朋友真的不想吗？</div>
+
+  <script>
+    const FORM_ENDPOINT = "https://formsubmit.co/ajax/3360953@qq.com";
+    const pages = [...document.querySelectorAll(".page")];
+    const dots = [...document.querySelectorAll(".dot")];
+    const toast = document.getElementById("toast");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const dateInput = document.getElementById("dateInput");
+    const timeSelect = document.getElementById("timeSelect");
+    const activityConfirm = document.getElementById("activityConfirm");
+    const selectedActivities = new Set();
+
+    const cuteLines = [
+      "程倚邈小朋友真的不想吗？🥺",
+      "再想一下嘛，我们去图书馆安静待着也可以呀。",
+      "我们两个都这么懒，这次我负责安排！",
+      "这个按钮觉得答案不对，所以自己跑掉了。",
+      "不一定要去很远，只要见到你就好。",
+      "你看旁边那个答案，已经越来越明显啦！",
+      "给程倚邈小朋友一次重新作答的机会。",
+      "都已经看到这里了，就答应我嘛～",
+      "好啦好啦，不闹了，快点选‘当然想’！"
+    ];
+
+    let noCount = 0;
+    let yesScale = 1;
+    let toastTimer;
+    let lastSubmissionText = "";
+
+    function showToast(text) {
+      toast.textContent = text;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+    }
+
+    function goTo(id) {
+      const index = pages.findIndex(page => page.id === id);
+      pages.forEach(page => page.classList.toggle("active", page.id === id));
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function moveNoButton(event) {
+      if (event) event.preventDefault();
+      noCount++;
+      yesScale = Math.min(2.28, 1 + noCount * 0.15);
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      const btnWidth = noBtn.offsetWidth || 84;
+      const btnHeight = noBtn.offsetHeight || 50;
+      const margin = 16;
+      const maxX = Math.max(margin, window.innerWidth - btnWidth - margin);
+      const maxY = Math.max(100, window.innerHeight - btnHeight - margin);
+      const x = Math.floor(margin + Math.random() * Math.max(1, maxX - margin));
+      const y = Math.floor(84 + Math.random() * Math.max(1, maxY - 84));
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = `rotate(${Math.floor(Math.random() * 14 - 7)}deg)`;
+      showToast(cuteLines[(noCount - 1) % cuteLines.length]);
+    }
+
+    ["pointerenter", "pointerdown", "touchstart", "click"].forEach(type => {
+      noBtn.addEventListener(type, moveNoButton, { passive: false });
+    });
+
+    yesBtn.addEventListener("click", () => {
+      noBtn.style.display = "none";
+      goTo("page2");
+    });
+
+    document.querySelectorAll("[data-next]").forEach(btn => {
+      btn.addEventListener("click", () => goTo(btn.dataset.next));
+    });
+
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, "0");
+    const dd = String(today.getDate()).padStart(2, "0");
+    dateInput.min = `${yyyy}-${mm}-${dd}`;
+
+    document.getElementById("timeConfirm").addEventListener("click", () => {
+      if (!dateInput.value) {
+        showToast("程倚邈小朋友先选一个约会日期嘛～");
+        return;
+      }
+      if (!timeSelect.value) {
+        showToast("还要告诉我几点见面哦～");
+        return;
+      }
+      goTo("page4");
+    });
+
+    document.querySelectorAll(".activity").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const name = btn.dataset.name;
+        btn.classList.toggle("selected");
+        if (btn.classList.contains("selected")) selectedActivities.add(name);
+        else selectedActivities.delete(name);
+      });
+    });
+
+    function formatChineseDate(date) {
+      return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+    }
+
+    function createPlanData() {
+      const [year, month, day] = dateInput.value.split("-").map(Number);
+      const [hour, minute] = timeSelect.value.split(":").map(Number);
+      const meetingTime = new Date(year, month - 1, day, hour, minute);
+      const pickupTime = new Date(meetingTime.getTime() - 30 * 60 * 1000);
+      const meetingDate = formatChineseDate(meetingTime);
+      const meetingClock = `${String(meetingTime.getHours()).padStart(2, "0")}:${String(meetingTime.getMinutes()).padStart(2, "0")}`;
+      const pickupDate = formatChineseDate(pickupTime);
+      const pickupClock = `${String(pickupTime.getHours()).padStart(2, "0")}:${String(pickupTime.getMinutes()).padStart(2, "0")}`;
+
+      const custom = document.getElementById("customActivity").value.trim();
+      const choices = [...selectedActivities];
+      if (custom) choices.push(custom);
+      const plan = choices.join("、");
+
+      return { meetingDate, meetingClock, pickupDate, pickupClock, plan };
+    }
+
+    function renderFinal(data) {
+      document.getElementById("finalText").textContent =
+        `程倚邈小朋友，我会在${data.pickupDate} ${data.pickupClock}准时去找你！`;
+      document.getElementById("finalPlan").textContent =
+        `我们约在${data.meetingDate} ${data.meetingClock}见面。想一起做的事情：${data.plan}。`;
+      lastSubmissionText =
+        `约会约定：${data.meetingDate} ${data.meetingClock}见面。我会提前半小时，也就是${data.pickupDate} ${data.pickupClock}去找程倚邈小朋友。约会计划：${data.plan}。`;
+    }
+
+    async function sendPlanByEmail(data) {
+      const payload = {
+        _subject: "程倚邈小朋友答应约会啦 💗",
+        _template: "table",
+        _honey: "",
+        "称呼": "程倚邈小朋友",
+        "她选择的约会日期": data.meetingDate,
+        "她选择的见面时间": data.meetingClock,
+        "你提前半小时去找她的时间": `${data.pickupDate} ${data.pickupClock}`,
+        "她想一起做的事情": data.plan,
+        "提交时间": new Date().toLocaleString("zh-CN", { hour12: false }),
+        "页面地址": window.location.href
+      };
+
+      const response = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.success === false) {
+        throw new Error(result.message || "发送失败");
+      }
+      return result;
+    }
+
+    activityConfirm.addEventListener("click", async () => {
+      const custom = document.getElementById("customActivity").value.trim();
+      if (selectedActivities.size === 0 && !custom) {
+        showToast("至少选一个想和我做的事情吧～");
+        return;
+      }
+
+      const data = createPlanData();
+      renderFinal(data);
+      activityConfirm.disabled = true;
+      activityConfirm.textContent = "正在把答案偷偷发给他…";
+
+      try {
+        await sendPlanByEmail(data);
+        sessionStorage.setItem("datePlanSent", "yes");
+        goTo("page5");
+      } catch (error) {
+        console.error(error);
+        showToast("网络好像打了个盹，再点一次试试～");
+        activityConfirm.disabled = false;
+        activityConfirm.textContent = "重新发送约会答案";
+      }
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(lastSubmissionText);
+        showToast("约会约定已经复制好啦 💗");
+      } catch {
+        showToast("截图保存也可以哦～");
+      }
+    });
+  </script>
+</body>
+</html>
